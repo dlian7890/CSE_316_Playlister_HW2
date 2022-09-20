@@ -71,24 +71,27 @@ export default class ListCard extends React.Component {
                 selectClass = "selected-list-card";
             }
             return (
-                <div
-                    id={keyNamePair.key}
-                    key={keyNamePair.key}
-                    onClick={this.handleClick}
-                    className={'list-card ' + selectClass}>
-                    <span
-                        id={"list-card-text-" + keyNamePair.key}
-                        key={keyNamePair.key}
-                        className="list-card-text">
-                        {keyNamePair.name}
-                    </span>
-                    <input
-                        type="button"
-                        id={"delete-list-" + keyNamePair.key}
-                        className="list-card-button"
-                        onClick={this.handleDeleteList}
-                        value={"\u2715"} />
-                </div>
+              <div
+                id={keyNamePair.key}
+                key={keyNamePair.key}
+                onClick={this.handleClick}
+                className={'list-card ' + selectClass}
+              >
+                <span
+                  id={'list-card-text-' + keyNamePair.key}
+                  key={keyNamePair.key}
+                  className='list-card-text'
+                >
+                  {keyNamePair.name}
+                </span>
+                <input
+                  type='button'
+                  id={'delete-list-' + keyNamePair.key}
+                  className='list-card-button'
+                  onClick={this.handleDeleteList}
+                  value={'🗑'}
+                />
+              </div>
             );
         }
     }
