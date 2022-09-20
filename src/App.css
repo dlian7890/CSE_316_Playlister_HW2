@@ -162,7 +162,21 @@ body {
   display: flex;
   align-items: center;
   font-size: 24pt;
-  height: 20%;
+  height: 10%;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 25px;
+  background-color: var(--swatch-complement);
+  color: white;
+}
+
+.playlister-song:hover {
+  background-color: var(--swatch-contrast);
+}
+
+.playlister-song-dragged-to {
+  border: 2px black solid;
+  opacity: 0.5;
 }
 
 input {
