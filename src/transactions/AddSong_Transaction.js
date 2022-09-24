@@ -1,12 +1,11 @@
 import jsTPS_Transaction from '../common/jsTPS.js';
 /**
- * MoveSong_Transaction
+ * AddSong_Transaction
  *
  * This class represents a transaction that adds a song to the
  * current playlist. It will be managed by the transaction stack.
  *
- * @author McKilla Gorilla
- * @author ?
+ * @author DongPing Lian
  */
 export default class AddSong_Transaction extends jsTPS_Transaction {
   constructor(initApp) {
@@ -15,7 +14,7 @@ export default class AddSong_Transaction extends jsTPS_Transaction {
   }
 
   doTransaction() {
-    this.app.addSong();
+    this.app.addSong('Untitled', 'Unknown', 'dQw4w9WgXcQ');
   }
 
   undoTransaction() {}
