@@ -49,11 +49,9 @@ export default class SongCard extends React.Component {
       isDragging: false,
       draggedTo: false,
     }));
-
     // ASK THE MODEL TO MOVE THE DATA
     this.props.moveCallback(sourceId, targetId);
   };
-
   handleDoubleClick = (event) => {
     event.preventDefault();
     this.props.selectSongCallback(
@@ -63,7 +61,10 @@ export default class SongCard extends React.Component {
   };
   handleRemoveSong = (event) => {
     event.preventDefault();
-    this.props.selectSongCallBack(this.props.id - 1);
+    this.props.selectSongCallback(
+      parseInt(this.props.id.split('playlist-song-').pop()) - 1
+    );
+    this.props.removeSongCallback();
   };
 
   getItemNum = () => {

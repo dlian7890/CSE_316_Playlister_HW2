@@ -15,8 +15,10 @@ export default class RemoveSong_Transaction extends jsTPS_Transaction {
   }
 
   doTransaction() {
-    this.removedSong = this.app.removeSong(this.songIndex);
+    this.removedSong = this.app.removeSong(this.songIdx);
   }
 
-  undoTransaction() {}
+  undoTransaction() {
+    this.app.undoRemoveSong(this.songIdx, this.removedSong);
+  }
 }

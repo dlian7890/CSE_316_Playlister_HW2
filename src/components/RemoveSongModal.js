@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 
 export default class RemoveSongModal extends Component {
   render() {
-    const {
-      songIdxMarkedForDeletion,
-      removeSongCallback,
-      hideRemoveSongModalCallback,
-    } = this.props;
+    const { removeSongCallback, hideRemoveSongModalCallback } = this.props;
 
     return (
       <div class='modal' id='remove-song-modal' data-animation='slideInOutLeft'>
@@ -22,7 +18,10 @@ export default class RemoveSongModal extends Component {
               type='button'
               id='remove-song-confirm-button'
               class='modal-button'
-              onClick={removeSongCallback(songIdxMarkedForDeletion)}
+              onClick={() => {
+                removeSongCallback();
+                hideRemoveSongModalCallback();
+              }}
               value='Confirm'
             />
             <input

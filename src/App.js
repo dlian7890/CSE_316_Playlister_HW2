@@ -288,13 +288,22 @@ class App extends React.Component {
   };
   // THIS FUNCTION REMOVES THE SONG AT THE SPECIFIED INDEX
   // FROM THE CURRENT PLAYLIST
-  removeSong = (songIdx) => {
+  removeSong = () => {
     let list = this.state.currentList;
-    let removedSong = null;
-    if (list != null) removedSong = list.songs.splice(songIdx, 1)[0];
+    let removedSongTemp = list.songs.splice(this.state.selectedSongIdx, 1)[0];
+    let removedSong = {
+      title: removedSongTemp.title,
+      artist: removedSongTemp.artist,
+      youTubeId: removedSongTemp.youTubeId,
+    };
     this.setStateWithUpdatedList(list);
-    console.log('song removed');
     return removedSong;
+  };
+  undoRemoveSong = (songIdx, removedSong) => {
+    let list = this.state.currentList;
+    list.songs.splice(songIdx, 0, removedSong);
+    this.setStateWithUpdatedList(list);
+    console.log(songIdx);
   };
   // THIS FUNCTION ADDS A MoveSong_Transaction TO THE TRANSACTION STACK
   addMoveSongTransaction = (start, end) => {
@@ -327,8 +336,11 @@ class App extends React.Component {
     this.hideEditSongModal();
   };
   //THIS FUNCTION ADDS A RemoveSong_Transaction TO THE TRANSACTION STACK
-  addRemoveSongTransaction = (idx) => {
-    let transaction = new RemoveSong_Transaction(this, idx);
+  addRemoveSongTransaction = () => {
+    let transaction = new RemoveSong_Transaction(
+      this,
+      this.state.selectedSongIdx
+    );
     this.tps.addTransaction(transaction);
   };
   // THIS FUNCTION BEGINS THE PROCESS OF PERFORMING AN UNDO
@@ -397,12 +409,12 @@ class App extends React.Component {
   // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
   // TO SEE IF THEY REALLY WANT TO REMOVE THE SONG
   showRemoveSongModal() {
-    let modal = document.getElementById('delete-song-modal');
+    let modal = document.getElementById('remove-song-modal');
     modal.classList.add('is-visible');
   }
   // THIS FUNCTION IS FOR HIDING THE MODAL
   hideRemoveSongModal() {
-    let modal = document.getElementById('delete-song-modal');
+    let modal = document.getElementById('remove-song-modal');
     modal.classList.remove('is-visible');
   }
   render() {
@@ -436,6 +448,7 @@ class App extends React.Component {
           moveSongCallback={this.addMoveSongTransaction}
           editSongCallback={this.showEditSongModal}
           selectSongCallback={this.selectSong}
+          removeSongCallback={this.showRemoveSongModal}
         />
         <Statusbar currentList={this.state.currentList} />
         <DeleteListModal
@@ -447,11 +460,10 @@ class App extends React.Component {
           hideEditSongModalCallback={this.hideEditSongModal}
           editSongCallback={this.addEditSongTransaction}
         />
-        {/* <RemoveSongModal
-          selectedSongIdx={this.state.selectedSongIdx}
-          hideRemoveSongListModalCallback={this.hideRemoveSongModal}
+        <RemoveSongModal
+          hideRemoveSongModalCallback={this.hideRemoveSongModal}
           removeSongCallback={this.addRemoveSongTransaction}
-        /> */}
+        />
       </React.Fragment>
     );
   }
