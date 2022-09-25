@@ -43,6 +43,7 @@ class App extends React.Component {
       currentList: null,
       sessionData: loadedSessionData,
       selectedSongIdx: -1,
+      selectedSongTitle: '',
     };
   }
 
@@ -87,6 +88,7 @@ class App extends React.Component {
           keyNamePairs: updatedPairs,
         },
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // PUTTING THIS NEW LIST IN PERMANENT STORAGE
@@ -129,6 +131,7 @@ class App extends React.Component {
           keyNamePairs: newKeyNamePairs,
         },
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // DELETING THE LIST FROM PERMANENT STORAGE
@@ -176,6 +179,7 @@ class App extends React.Component {
           keyNamePairs: newKeyNamePairs,
         },
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
@@ -196,6 +200,7 @@ class App extends React.Component {
         currentList: newCurrentList,
         sessionData: this.state.sessionData,
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
@@ -212,6 +217,7 @@ class App extends React.Component {
         currentList: null,
         sessionData: this.state.sessionData,
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
@@ -227,6 +233,7 @@ class App extends React.Component {
         currentList: list,
         sessionData: this.state.sessionData,
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // UPDATING THE LIST IN PERMANENT STORAGE
@@ -290,12 +297,7 @@ class App extends React.Component {
   // FROM THE CURRENT PLAYLIST
   removeSong = () => {
     let list = this.state.currentList;
-    let removedSongTemp = list.songs.splice(this.state.selectedSongIdx, 1)[0];
-    let removedSong = {
-      title: removedSongTemp.title,
-      artist: removedSongTemp.artist,
-      youTubeId: removedSongTemp.youTubeId,
-    };
+    let removedSong = list.songs.splice(this.state.selectedSongIdx, 1)[0];
     this.setStateWithUpdatedList(list);
     return removedSong;
   };
@@ -368,6 +370,7 @@ class App extends React.Component {
         listKeyPairMarkedForDeletion: keyPair,
         sessionData: prevState.sessionData,
         selectedSongIdx: prevState.selectedSongIdx,
+        selectedSongTitle: prevState.selectedSongTitle,
       }),
       () => {
         // PROMPT THE USER
@@ -377,11 +380,13 @@ class App extends React.Component {
   };
 
   selectSong = (songIdx) => {
+    let list = this.state.currentList;
     this.setState((prevState) => ({
       currentList: this.state.currentList,
       listKeyPairMarkedForDeletion: this.state.sessionData,
       sessionData: prevState.sessionData,
       selectedSongIdx: songIdx,
+      selectedSongTitle: list.songs[songIdx].title,
     }));
   };
   // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
@@ -463,6 +468,7 @@ class App extends React.Component {
         <RemoveSongModal
           hideRemoveSongModalCallback={this.hideRemoveSongModal}
           removeSongCallback={this.addRemoveSongTransaction}
+          selectedSongTitle={this.state.selectedSongTitle}
         />
       </React.Fragment>
     );

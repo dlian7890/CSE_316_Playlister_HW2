@@ -34,7 +34,7 @@ export default class EditSongModal extends Component {
   };
 
   render() {
-    const { hideEditSongModalCallback, editSongCallback } = this.props;
+    const { hideEditSongModalCallback, editSongCallback, } = this.props;
 
     return (
       <div class='modal' id='edit-song-modal' data-animation='slideInOutLeft'>
