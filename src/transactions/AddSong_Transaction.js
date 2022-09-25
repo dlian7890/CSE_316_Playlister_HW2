@@ -17,5 +17,7 @@ export default class AddSong_Transaction extends jsTPS_Transaction {
     this.app.addSong('Untitled', 'Unknown', 'dQw4w9WgXcQ');
   }
 
-  undoTransaction() {}
+  undoTransaction() {
+    this.app.removeSong(this.app.getPlaylistSize() - 1);
+  }
 }
