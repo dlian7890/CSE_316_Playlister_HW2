@@ -179,6 +179,10 @@ body {
   opacity: 0.5;
 }
 
+.disabled {
+  background-color: lightgray;
+}
+
 input {
   font-size: 20pt;
 }

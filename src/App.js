@@ -424,8 +424,10 @@ class App extends React.Component {
   }
   render() {
     let canAddSong = this.state.currentList !== null;
-    let canUndo = this.tps.hasTransactionToUndo();
-    let canRedo = this.tps.hasTransactionToRedo();
+    let canUndo =
+      this.state.currentList !== null && this.tps.hasTransactionToUndo();
+    let canRedo =
+      this.state.currentList !== null && this.tps.hasTransactionToRedo();
     let canClose = this.state.currentList !== null;
     return (
       <React.Fragment id='root'>
