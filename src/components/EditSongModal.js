@@ -34,7 +34,7 @@ export default class EditSongModal extends Component {
   };
 
   render() {
-    const { hideEditSongModalCallback, editSongCallback, } = this.props;
+    const { hideEditSongModalCallback, editSongCallback } = this.props;
 
     return (
       <div class='modal' id='edit-song-modal' data-animation='slideInOutLeft'>
@@ -48,6 +48,7 @@ export default class EditSongModal extends Component {
                   type='text'
                   id='edit-song-title-form'
                   class='modal-form'
+                  value={this.state.title}
                   placeholder=''
                   onChange={this.setTitle}
                 />
@@ -58,6 +59,7 @@ export default class EditSongModal extends Component {
                   type='text'
                   id='edit-song-artist-form'
                   class='modal-form'
+                  value={this.state.artist}
                   placeholder=''
                   onChange={this.setArtist}
                 />
@@ -68,6 +70,7 @@ export default class EditSongModal extends Component {
                   type='text'
                   id='edit-song-youTubeId-form'
                   class='modal-form'
+                  value={this.state.youTubeId}
                   placeholder=''
                   onChange={this.setYouTubeId}
                 />
@@ -87,6 +90,7 @@ export default class EditSongModal extends Component {
                   this.state.youTubeId
                 );
                 hideEditSongModalCallback();
+                this.setState({ title: '', artist: '', youTubeId: '' });
               }}
             />
             <input
@@ -94,7 +98,10 @@ export default class EditSongModal extends Component {
               id='edit-song-cancel-button'
               class='modal-button'
               value='Cancel'
-              onClick={hideEditSongModalCallback}
+              onClick={() => {
+                hideEditSongModalCallback();
+                this.setState({ title: '', artist: '', youTubeId: '' });
+              }}
             />
           </div>
         </div>

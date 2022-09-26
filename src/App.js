@@ -206,6 +206,7 @@ class App extends React.Component {
         // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
         // THE TRANSACTION STACK IS CLEARED
         this.tps.clearAllTransactions();
+        this.forceUpdate();
       }
     );
   };
@@ -223,6 +224,7 @@ class App extends React.Component {
         // AN AFTER EFFECT IS THAT WE NEED TO MAKE SURE
         // THE TRANSACTION STACK IS CLEARED
         this.tps.clearAllTransactions();
+        this.forceUpdate();
       }
     );
   };
@@ -424,13 +426,16 @@ class App extends React.Component {
   }
 
   handleUndoRedo = (event) => {
-    event.preventDefault();
     let canUndo = this.tps.hasTransactionToUndo();
     let canRedo = this.tps.hasTransactionToRedo();
     if (event.ctrlKey) {
       if (event.keyCode === 90) {
+        event.preventDefault();
         if (canUndo) this.undo();
-      } else if (event.keyCode === 89) if (canRedo) this.redo();
+      } else if (event.keyCode === 89) {
+        event.preventDefault();
+        if (canRedo) this.redo();
+      }
     }
   };
 
@@ -439,7 +444,7 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
-    document.addEventListener('keydown', this.handleUndoRedo);
+    document.removeEventListener('keydown', this.handleUndoRedo);
   }
 
   render() {
@@ -447,11 +452,15 @@ class App extends React.Component {
     let canUndo = this.tps.hasTransactionToUndo();
     let canRedo = this.tps.hasTransactionToRedo();
     let canClose = this.state.currentList !== null;
+    let canCreateNewList = this.state.currentList === null;
 
     return (
       <React.Fragment id='root'>
         <Banner />
-        <SidebarHeading createNewListCallback={this.createNewList} />
+        <SidebarHeading
+          createNewListCallback={this.createNewList}
+          canCreateNewList={canCreateNewList}
+        />
         <SidebarList
           currentList={this.state.currentList}
           keyNamePairs={this.state.sessionData.keyNamePairs}
