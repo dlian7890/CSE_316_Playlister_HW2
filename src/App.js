@@ -422,13 +422,32 @@ class App extends React.Component {
     let modal = document.getElementById('remove-song-modal');
     modal.classList.remove('is-visible');
   }
+
+  handleUndoRedo = (event) => {
+    event.preventDefault();
+    let canUndo = this.tps.hasTransactionToUndo();
+    let canRedo = this.tps.hasTransactionToRedo();
+    if (event.ctrlKey) {
+      if (event.keyCode === 90) {
+        if (canUndo) this.undo();
+      } else if (event.keyCode === 89) if (canRedo) this.redo();
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleUndoRedo);
+  }
+
+  componentWillUnmount() {
+    document.addEventListener('keydown', this.handleUndoRedo);
+  }
+
   render() {
     let canAddSong = this.state.currentList !== null;
-    let canUndo =
-      this.state.currentList !== null && this.tps.hasTransactionToUndo();
-    let canRedo =
-      this.state.currentList !== null && this.tps.hasTransactionToRedo();
+    let canUndo = this.tps.hasTransactionToUndo();
+    let canRedo = this.tps.hasTransactionToRedo();
     let canClose = this.state.currentList !== null;
+
     return (
       <React.Fragment id='root'>
         <Banner />

@@ -180,7 +180,8 @@ body {
 }
 
 .disabled {
-  background-color: lightgray;
+  color: lightgray;
+  cursor: auto;
 }
 
 input {
@@ -274,6 +275,21 @@ span {
 
 .modal-button {
   font-size: 20pt;
+}
+
+.modal-label {
+  font-size: 2.5rem;
+  padding-right: 75px;
+}
+
+.modal-form {
+  width: 250px;
+}
+
+.edit-song-modal-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 #title-prompt {
