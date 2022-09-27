@@ -87,6 +87,7 @@ export default class SongCard extends React.Component {
         onDragEnter={this.handleDragEnter}
         onDragLeave={this.handleDragLeave}
         onDoubleClick={this.handleDoubleClick}
+        onDrop={this.handleDrop}
         draggable='true'
       >
         <a

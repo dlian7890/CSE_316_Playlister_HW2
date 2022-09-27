@@ -160,6 +160,7 @@ body {
 .playlister-song,
 .playlister-song-dragged-to {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 24pt;
   height: 10%;
