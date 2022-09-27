@@ -8,7 +8,7 @@ export default class RemoveSongModal extends Component {
     return (
       <div class='modal' id='remove-song-modal' data-animation='slideInOutLeft'>
         <div class='modal-root' id='verify-remove-song-root'>
-          <div class='modal-north'>remove song?</div>
+          <div class='modal-north'>Remove song?</div>
           <div class='modal-center'>
             <div class='modal-center-content'>
               Are you sure you wish to permanently remove the song, {selectedSongTitle}

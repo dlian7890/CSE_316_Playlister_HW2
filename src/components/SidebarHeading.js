@@ -11,9 +11,8 @@ export default class SidebarHeading extends React.Component {
           type='button'
           id='add-list-button'
           className={addNewListClass}
-          onClick={() => {
-            if (canCreateNewList) createNewListCallback();
-          }}
+          disabled={!canCreateNewList}
+          onClick={createNewListCallback}
           value='+'
         />
         Your Playlists

@@ -288,7 +288,6 @@ class App extends React.Component {
   // THis FUNCTION EDITS A SONG AT THE INDEX OF THE CURRENT PLAYLIST
   editSong = (songIdx, editedSong) => {
     let list = this.state.currentList;
-    console.log(songIdx);
     let song = list.songs[songIdx];
     if (editedSong.title !== '') song.title = editedSong.title;
     if (editedSong.artist !== '') song.artist = editedSong.artist;
@@ -307,7 +306,6 @@ class App extends React.Component {
     let list = this.state.currentList;
     list.songs.splice(songIdx, 0, removedSong);
     this.setStateWithUpdatedList(list);
-    console.log(songIdx);
   };
   // THIS FUNCTION ADDS A MoveSong_Transaction TO THE TRANSACTION STACK
   addMoveSongTransaction = (start, end) => {
@@ -437,6 +435,7 @@ class App extends React.Component {
         if (canRedo) this.redo();
       }
     }
+    this.forceUpdate();
   };
 
   componentDidMount() {
