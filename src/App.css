@@ -180,11 +180,6 @@ body {
   opacity: 0.5;
 }
 
-.disabled {
-  color: lightgray;
-  cursor: auto;
-}
-
 input {
   font-size: 20pt;
 }
